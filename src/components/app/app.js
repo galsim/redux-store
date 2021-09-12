@@ -2,6 +2,8 @@ import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 import {HomePage, CartPage} from '../pages'
 import ShopHeader from '../shop-header'
+import ShoppingCartTable from '../shopping-cart-table'
+
 const App = () => {
     return (
         <div>
@@ -18,6 +20,7 @@ const App = () => {
                 component={CartPage}
             />
         </Switch>
+        <ShoppingCartTable />
         </div>
     )
 }

@@ -4,7 +4,7 @@ import Spinner from '../spinner'
 import ErrorIndicator from '../error-indicator'
 
 import {connect} from 'react-redux'
-import {fetchBooks} from '../../actions'
+import {fetchBooks, bookAddedToCart} from '../../actions'
 
 import { withBookstoreService} from '../hoc'
 
@@ -17,7 +17,7 @@ class BookListContainer extends Component {
     }
 
     render () {
-        const { books, loading, error } = this.props
+        const { books, loading, error, onAddedToCart } = this.props
 
         if (loading) {
             return <Spinner />
@@ -28,18 +28,20 @@ class BookListContainer extends Component {
         }
 
         return (
-            <BookList books={books} />
+            <BookList books={books} onAddedToCart={onAddedToCart} />
         )
     }
 }
 
-const BookList = ({books}) => {
+const BookList = ({books, onAddedToCart}) => {
     return (
         <ul>
             {books
                 .map(book => (
                     <li key={book.id}>
-                        <BookListItem book={book} />
+                        <BookListItem 
+                        book={book} 
+                        onAddedToCart={() => onAddedToCart(book.id)} />
                     </li>
                     )
                 )
@@ -55,7 +57,8 @@ const mapStateToProps = ({books, loading, error}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     const { bookstoreService } = ownProps
     return {
-        fetchBooks: fetchBooks(dispatch, bookstoreService)
+        fetchBooks: fetchBooks(dispatch, bookstoreService),
+        onAddedToCart: (id) => dispatch(bookAddedToCart(id))
     }
 }
 
