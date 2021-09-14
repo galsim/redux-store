@@ -1,8 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {bookRemoveFromCart,
+import {
+    bookRemoveFromCart,
     allBookRemoveFromCart,
-    bookAddedToCart} from '../../actions'
+    bookAddedToCart
+} from '../../actions'
+
 const ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => {
     return (
             <div className="shopping-cart-table">
@@ -72,7 +75,7 @@ const ShoppingCartTableRow = ({id, title, count, total, onDecrease, onIncrease, 
     )
 }
 
-const mapStateToProps = ({cartItems, orderTotal}) => {
+const mapStateToProps = ({shoppingCart: {cartItems, orderTotal}}) => {
     return {
         items: cartItems,
         total: orderTotal
